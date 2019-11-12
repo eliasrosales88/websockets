@@ -24,7 +24,24 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       $(function () {
-​
+        const socket = io();
+        $("form").submit(()=>{
+            socket.emit("nuevo-mensaje", $("#m").val());
+            return false;
+        });
+
+        // mensaje recibido desde el servidor
+        socket.on("nuevo-mensaje", data => {
+            // añado un mensaje recibio a la lista
+            $("#messages").append($("<li>").text(data));
+        })
+
+
+
+        // socket.on("pasa un segundo", ()=> {
+        //     $("#messages").append($("<li>").text("El servidor dice que ha pasado un segundo"));
+        // });
+
       });
     </script>
   </body>
